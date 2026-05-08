@@ -1,0 +1,23 @@
+[package]
+name = "yueduqi-tauri"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata]
+name = "yueduqi-tauri"
+
+[lib]
+name = "yueduqi_tauri_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", features = ["json"] }
+scraper = "0.22"
+encoding_rs = "0.8"
+tokio = { version = "1", features = ["full"] }

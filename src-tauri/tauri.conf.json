@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicholasio/dwt/main/.schemas/tauri-v2.json",
+  "productName": "阅读器",
+  "version": "0.1.0",
+  "identifier": "com.yueduqi.app",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "title": "阅读器",
+        "width": 1024,
+        "height": 768,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  }
+}
