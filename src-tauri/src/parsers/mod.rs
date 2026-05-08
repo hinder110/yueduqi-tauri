@@ -92,8 +92,8 @@ fn fuzzy_match(a: &str, b: &str) -> bool {
 }
 
 fn normalize_name(s: &str) -> String {
-    let re_paren = regex_lite::Regex::new(r"[（(].*?[）)]").unwrap();
-    let re_sym = regex_lite::Regex::new(r"[^一-龥a-zA-Z0-9]").unwrap();
+    let re_paren = regex::Regex::new(r"[（(].*?[）)]").unwrap();
+    let re_sym = regex::Regex::new(r"[^一-龥a-zA-Z0-9]").unwrap();
     let no_paren = re_paren.replace_all(s, "").to_string();
     re_sym.replace_all(&no_paren, "").to_lowercase()
 }

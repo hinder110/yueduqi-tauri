@@ -56,7 +56,7 @@ fn map_book(item: &Value) -> Book {
 }
 
 fn clean_book_name(name: &str) -> String {
-    let re = regex_lite::Regex::new(r"[（(]别名[：:].*?[）)]").unwrap();
+    let re = regex::Regex::new(r"[（(]别名[：:].*?[）)]").unwrap();
     re.replace(name, "").trim().to_string()
 }
 
@@ -159,7 +159,7 @@ pub async fn get_chapter_content(
 }
 
 fn clean_content(text: &str) -> String {
-    let re = regex_lite::Regex::new(r#"\s*ident="[^"]*""#).unwrap();
+    let re = regex::Regex::new(r#"\s*ident="[^"]*""#).unwrap();
     re.replace_all(text, "").split('\n').map(|l| l.trim()).filter(|l| !l.is_empty())
         .map(|l| format!("<p>{}</p>", l)).collect::<Vec<_>>().join("\n")
 }

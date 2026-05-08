@@ -148,13 +148,13 @@ pub async fn get_chapter_content(chapter_url: &str) -> Result<ChapterContent, St
     }
 
     // 移除 script/style/div/a 标签
-    let re_tag = regex_lite::Regex::new(r"<(script|style|div|a)\b[^>]*>.*?</\1>").unwrap();
+    let re_tag = regex::Regex::new(r"<(script|style|div|a)\b[^>]*>.*?</(script|style|div|a)>").unwrap();
     let cleaned = re_tag.replace_all(&raw, "");
     // <br> 转 \n
-    let re_br = regex_lite::Regex::new(r"<br\s*/?>").unwrap();
+    let re_br = regex::Regex::new(r"<br\s*/?>").unwrap();
     let with_nl = re_br.replace_all(&cleaned, "\n");
     // 去掉所有 HTML 标签
-    let re_html = regex_lite::Regex::new(r"<[^>]+>").unwrap();
+    let re_html = regex::Regex::new(r"<[^>]+>").unwrap();
     let text = re_html.replace_all(&with_nl, "");
 
     let final_text = text

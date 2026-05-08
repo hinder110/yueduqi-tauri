@@ -71,7 +71,7 @@ pub async fn search_books(keyword: &str) -> Result<Vec<Book>, String> {
             .trim()
             .to_string();
         // 去掉 [分类] 前缀
-        let name = regex_lite::Regex::new(r"^\[.*?\]")
+        let name = regex::Regex::new(r"^\[.*?\]")
             .unwrap()
             .replace(&name, "")
             .trim()
@@ -145,7 +145,7 @@ pub async fn get_chapter_content(chapter_url: &str) -> Result<ChapterContent, St
         .next()
         .map(|e| e.text().collect::<String>().trim().to_string())
         .unwrap_or_default();
-    let title = regex_lite::Regex::new(r"-《.*》")
+    let title = regex::Regex::new(r"-《.*》")
         .unwrap()
         .replace(&title, "")
         .trim()
@@ -157,20 +157,20 @@ pub async fn get_chapter_content(chapter_url: &str) -> Result<ChapterContent, St
         raw = el.inner_html();
     }
 
-    let re_tag = regex_lite::Regex::new(r"<(script|style|div|a)\b[^>]*>.*?</\1>").unwrap();
+    let re_tag = regex::Regex::new(r"<(script|style|div|a)\b[^>]*>.*?</(script|style|div|a)>").unwrap();
     let cleaned = re_tag.replace_all(&raw, "");
-    let re_br = regex_lite::Regex::new(r"<br\s*/?>").unwrap();
+    let re_br = regex::Regex::new(r"<br\s*/?>").unwrap();
     let with_nl = re_br.replace_all(&cleaned, "\n");
-    let re_html = regex_lite::Regex::new(r"<[^>]+>").unwrap();
+    let re_html = regex::Regex::new(r"<[^>]+>").unwrap();
     let text = re_html.replace_all(&with_nl, "");
 
-    let final_text = regex_lite::Regex::new(r"本章未完.*")
+    let final_text = regex::Regex::new(r"本章未完.*")
         .unwrap()
         .replace_all(&text, "");
-    let final_text = regex_lite::Regex::new(r"第\s*\(?\s*\d+\s*/\s*\d+\s*\)?\s*页")
+    let final_text = regex::Regex::new(r"第\s*\(?\s*\d+\s*/\s*\d+\s*\)?\s*页")
         .unwrap()
         .replace_all(&final_text, "");
-    let final_text = regex_lite::Regex::new(r"\n{3,}")
+    let final_text = regex::Regex::new(r"\n{3,}")
         .unwrap()
         .replace_all(&final_text, "\n\n")
         .trim()
