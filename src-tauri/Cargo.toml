@@ -21,3 +21,5 @@ reqwest = { version = "0.12", features = ["json"] }
 scraper = "0.22"
 encoding_rs = "0.8"
 tokio = { version = "1", features = ["full"] }
+regex-lite = "0.1"
+urlencoding = "2"
